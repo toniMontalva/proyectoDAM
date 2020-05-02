@@ -1,5 +1,7 @@
 {
   "name": "damProyecto",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
