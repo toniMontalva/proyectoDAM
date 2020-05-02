@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -8,13 +9,28 @@ import { Router } from '@angular/router';
 })
 export class AuthPage implements OnInit {
 
-  constructor(private router: Router) { }
+  email: string = "";
+  password: string = "";
+  error: string = "";
+
+  constructor(private router: Router, private _authService: AuthService) { }
 
   ngOnInit() {
   }
 
   async navTabs() {
-    this.router.navigate(['/tabs/tab1']);
+    
   }
+
+  async login() {
+    await this._authService.login(this.email, this.password);
+    this.error = this._authService.error;
+    this.password = ""; 
+  }
+
+  // // Anonymous login
+  // async loginAnonymously() {
+  //   await this.authService.loginAnonymously();
+  // }
 
 }
