@@ -1,9 +1,12 @@
 {
     "Language": "Idioma",
     "Forgot": "¿Olvidaste tu contraseña?",
+    "NewUser": "¿Aún no estás registrado?",
+    "or": "o",
     "Email": "Introduce email",
     "Password": "Introduce contraseña",
     "Login": "Iniciar sesión",
+    "Sign up": "Registrarse",
     "Profile": "Perfil",
     "Exit": "Salir",
     "Cancel": "Cancelar",

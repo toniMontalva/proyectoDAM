@@ -5,17 +5,17 @@
     </ion-row>
     <ion-row class="ion-justify-content-center">
       <ion-col size="10" size-lg="6">
-        <ion-input class="input1" mode="md" type="email" [(ngModel)]="email" placeholder="Enter email" clearInput="true"></ion-input>
+        <ion-input class="input1" mode="md" type="email" [(ngModel)]="email" placeholder="{{'Email' | translate}}" clearInput="true"></ion-input>
       </ion-col>      
     </ion-row>
     <ion-row class="ion-justify-content-center">
       <ion-col size="10" size-lg="6">
-        <ion-input class="input1" mode="md" type="password" [(ngModel)]="password" placeholder="Enter password" clearInput="true"></ion-input>
+        <ion-input class="input1" mode="md" type="password" [(ngModel)]="password" placeholder="{{'Password' | translate}}" clearInput="true"></ion-input>
       </ion-col>
     </ion-row>
     <ion-row class="ion-justify-content-center">
       <ion-col size="10" size-lg="6">
-        <ion-button mode="ios" type="submit" color="danger" expand="block" (click)="login()">Login</ion-button>
+        <ion-button mode="ios" type="submit" color="danger" expand="block" (click)="login()">{{'Login' | translate}}</ion-button>
       </ion-col>
     </ion-row>
     <ion-row class="ion-justify-content-center">
@@ -25,9 +25,9 @@
     </ion-row>
     <ion-row class="ion-justify-content-center">
       <ion-col style="text-align: center;" size="10" size-lg="6">
-        <span class="divider line one-line">or</span>
-        <span class="already">Don't have an account yet?</span>
-        <ion-button mode="ios" [routerLink]="['/signup']" expand="block" color="tertiary">Sign up</ion-button>        
+        <span class="divider line one-line" translate>or</span>
+        <span class="already" translate>NewUser</span>
+        <ion-button mode="ios" [routerLink]="['/signup']" expand="block" color="tertiary" translate>Sign up</ion-button>        
       </ion-col>
     </ion-row>
     

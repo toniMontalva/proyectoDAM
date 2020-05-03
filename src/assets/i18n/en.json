@@ -1,9 +1,12 @@
 {
     "Language": "Language",
     "Forgot": "Have you forgot your password?",
+    "NewUser": "Don't have an account yet",
+    "or": "or",
     "Email": "Type email",
     "Password": "Type password",
     "Login": "Login",
+    "Sign up": "Sign up",
     "Profile": "Profile",
     "Exit": "Exit",
     "Cancel": "Cancel",
