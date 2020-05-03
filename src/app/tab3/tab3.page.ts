@@ -15,8 +15,4 @@ export class Tab3Page {
     await this._authService.logout();
   }
 
-  profile() {
-    this.router.navigate(['/profile']);
-  }
-
 }
