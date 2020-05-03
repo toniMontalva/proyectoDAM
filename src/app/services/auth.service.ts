@@ -55,13 +55,32 @@ export class AuthService {
     }
 
     // Log out the current user
-    logout() {
+    async logout() {
         this.presentLoading();
-        this.afAuth
+        await this.afAuth
             .auth
             .signOut()
             .then(() => {
                 this.router.navigate(['/auth']);
             });
     }
+
+    // Sign up a new user
+    async signup(email: string, password: string) {
+        this.error = "";
+        this.presentLoading();
+        await this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+            .then(data => {
+                if(data.user) {
+                    // User has been created successfully
+                    this.router.navigate(['/auth']);
+                    this.presentToast("User created, log in", 'bottom', 3000);
+                }
+            })
+            .catch(error => {
+                // An error happened
+                this.error = error;
+            })
+    }
+
 }

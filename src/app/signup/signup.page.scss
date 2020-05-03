@@ -1,0 +1,26 @@
+.error {
+    color: red;
+}
+
+.container {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.input1 {
+    --background: orange;
+    --placeholder-color: black;
+    --placeholder-opacity: 1;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.input2 {
+    --background: rgba(255, 212, 93, 0.87);
+    --placeholder-color: black;
+    --placeholder-opacity: 1;
+    border-radius: 10px;
+    text-align: center;
+}
