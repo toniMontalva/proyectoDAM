@@ -9,7 +9,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class AuthPage implements OnInit {
 
-  email: string = "";
+  email: string = "tonimontalvapastor@gmail.com";
   password: string = "";
   error: string = "";
 
