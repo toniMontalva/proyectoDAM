@@ -1,12 +1,24 @@
 <ion-header mode='ios'>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text=""></ion-back-button>
+      <ion-back-button text="{{'Back' | translate}}"></ion-back-button>
     </ion-buttons>
-    <ion-title>Profile</ion-title>
+    <ion-title translate>Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
 </ion-content>
+
+<ion-footer class="ion-no-border" mode="ios">
+  <ion-list>
+    <ion-item>
+      <ion-label>{{'Language' | translate}}</ion-label>
+      <ion-select cancelText="{{'Cancel' | translate}}" placeholder="{{'Select One' | translate}}" [(ngModel)]="selectedLanguage" (ionChange)="languageChanged()">
+        <ion-select-option value="es">{{'Spanish' | translate}}</ion-select-option>
+        <ion-select-option value="en">English</ion-select-option> 
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-footer>

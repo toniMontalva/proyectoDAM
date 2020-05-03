@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { TranslateConfigService } from '../translate-config.service';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilePage implements OnInit {
 
-  constructor() { }
+  selectedLanguage: string;
+
+  constructor(private translate: TranslateService, private translateService: TranslateConfigService) { 
+    this.selectedLanguage = this.translate.currentLang;
+  }
 
   ngOnInit() {
+  }
+
+  languageChanged() {
+    this.translateService.setLanguage(this.selectedLanguage);
   }
 
 }
