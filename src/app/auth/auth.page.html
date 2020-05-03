@@ -33,3 +33,15 @@
     
   </div>
 </ion-content>
+
+<ion-footer class="ion-no-border" mode="ios">
+  <ion-list>
+    <ion-item>
+      <ion-label>{{'Language' | translate}}</ion-label>
+      <ion-select cancelText="{{'Cancel' | translate}}" placeholder="{{'Select One' | translate}}" [(ngModel)]="selectedLanguage" (ionChange)="languageChanged()">
+        <ion-select-option value="es">{{'Spanish' | translate}}</ion-select-option>
+        <ion-select-option value="en">English</ion-select-option> 
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-footer>

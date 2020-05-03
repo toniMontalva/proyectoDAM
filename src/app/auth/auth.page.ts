@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
+import { TranslateConfigService } from '../translate-config.service';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.page.html',
@@ -13,19 +16,25 @@ export class AuthPage implements OnInit {
   password: string = "";
   error: string = "";
 
-  constructor(private router: Router, private _authService: AuthService) { }
+  lan: any = {}
+  selectedLanguage: string = "es";
 
-  ngOnInit() {
+  constructor(private translate: TranslateService, private translateService: TranslateConfigService, private router: Router, private _authService: AuthService) { 
+    this.translate.setDefaultLang('es');
+    this.translate.use('es');
   }
 
-  async navTabs() {
-    
+  ngOnInit() {
   }
 
   async login() {
     await this._authService.login(this.email, this.password);
     this.error = this._authService.error;
     this.password = ""; 
+  }
+
+  languageChanged() {
+    this.translateService.setLanguage(this.selectedLanguage);
   }
 
   // // Anonymous login

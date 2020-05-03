@@ -16,6 +16,15 @@ import { environment } from '../environments/environment';
 
 import { AuthService } from './services/auth.service';
 
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateConfigService } from './translate-config.service';
+ 
+export function createLanguageLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,11 +36,20 @@ import { AuthService } from './services/auth.service';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createLanguageLoader),
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     StatusBar,
     SplashScreen,
     AuthService,
+    TranslateConfigService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
