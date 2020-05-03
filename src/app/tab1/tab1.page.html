@@ -1,17 +1,38 @@
 <ion-header mode='ios'>
   <ion-toolbar>
     <ion-title>Partidos</ion-title>
-    <ion-buttons slot="end" padding-start>
+    <ion-buttons slot="end" padding-start (click)="profile()">
       <ion-icon name="person-circle-outline" class="fontSize"></ion-icon>
     </ion-buttons>
     <ion-buttons slot="start" padding-start (click)="logout()">
       <ion-icon name="log-out-outline" class="fontSize"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
+  <ion-toolbar color="primary">
+ 
+    <ion-segment 
+    value="today" 
+    color="tertiary" 
+    scrollable="true"
+    mode="ios"
+    [(ngModel)]="segmentModel" 
+    (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="today">
+        <ion-label>Hoy</ion-label>
+      </ion-segment-button>
+ 
+      <ion-segment-button value="next">
+        <ion-label>Próximos</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="container">
-
+  <div class="containerToday" *ngIf="segmentModel === 'today'">
+    <ion-text>Today</ion-text>
+  </div>
+  <div class="containerToday" *ngIf="segmentModel === 'next'">
+    <ion-text>Soon</ion-text>
   </div>
 </ion-content>
