@@ -1,6 +1,6 @@
 <ion-header mode='ios'>
   <ion-toolbar>
-    <ion-title>Partidos</ion-title>
+    <ion-title>{{'Matches' | translate}}</ion-title>
     <ion-buttons slot="end" padding-start (click)="profile()">
       <ion-icon name="person-circle-outline" class="fontSize"></ion-icon>
     </ion-buttons>
@@ -18,11 +18,11 @@
     [(ngModel)]="segmentModel" 
     (ionChange)="segmentChanged($event)">
       <ion-segment-button value="today">
-        <ion-label>Hoy</ion-label>
+        <ion-label>{{'Today' | translate}}</ion-label>
       </ion-segment-button>
  
       <ion-segment-button value="next">
-        <ion-label>Próximos</ion-label>
+        <ion-label>{{'Soon' | translate}}</ion-label>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
