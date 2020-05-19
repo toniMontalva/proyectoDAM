@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { AlertController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-signup',
@@ -14,20 +15,32 @@ export class SignupPage implements OnInit {
   confpassword: string = "";
   error: string = "";
 
-  constructor(private _authService: AuthService, private alertController: AlertController) { }
+  lang: string = "";
+
+  constructor(private _authService: AuthService, private alertController: AlertController, private translate: TranslateService) { }
 
   ngOnInit() {
+    this.lang = this.translate.currentLang;
   }
 
   async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Error',
-      subHeader: 'Error while creating an user',
-      message: 'Passwords don\'t match',
-      buttons: ['OK']
-    });
-
-    await alert.present();
+    if(this.lang == "en") {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        subHeader: 'Error while creating an user',
+        message: 'Passwords don\'t match',
+        buttons: ['OK']
+      });
+      await alert.present();
+    } else if(this.lang == "es") {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        subHeader: 'Ha habido un error al crear la cuenta',
+        message: 'Las contraseñas no coindicen',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
   }
 
   async signup() {

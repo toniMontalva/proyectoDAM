@@ -1,3 +1,11 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="{{'Back' | translate}}"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
   <div class="container">
     <ion-row class="ion-justify-content-center">
@@ -5,22 +13,22 @@
     </ion-row>
     <ion-row class="ion-justify-content-center">
       <ion-col size="10" size-lg="6">
-        <ion-input class="input1" mode="md" type="email" [(ngModel)]="email" placeholder="Enter email" clearInput="true"></ion-input>
+        <ion-input class="input1" mode="md" type="email" [(ngModel)]="email" placeholder="{{'Email' | translate}}" clearInput="true"></ion-input>
       </ion-col>      
     </ion-row>
     <ion-row class="ion-justify-content-center">
       <ion-col size="10" size-lg="6">
-        <ion-input class="input2" mode="md" type="password" [(ngModel)]="password" placeholder="Enter password" clearInput="true"></ion-input>
+        <ion-input class="input2" mode="md" type="password" [(ngModel)]="password" placeholder="{{'Password' | translate}}" clearInput="true"></ion-input>
       </ion-col>
     </ion-row>
     <ion-row class="ion-justify-content-center">
       <ion-col size="10" size-lg="6">
-        <ion-input class="input2" mode="md" type="password" [(ngModel)]="confpassword" placeholder="Confirm password" clearInput="true"></ion-input>
+        <ion-input class="input2" mode="md" type="password" [(ngModel)]="confpassword" placeholder="{{'Confirm password' | translate}}" clearInput="true"></ion-input>
       </ion-col>
     </ion-row>
     <ion-row class="ion-justify-content-center">
       <ion-col size="10" size-lg="6">
-        <ion-button mode="ios" type="submit" color="danger" expand="block" (click)="signup()">Sign Up</ion-button>
+        <ion-button mode="ios" type="submit" color="danger" expand="block" (click)="signup()">{{'Sign up' | translate}}</ion-button>
       </ion-col>
     </ion-row>
     <ion-row class="ion-justify-content-center">
