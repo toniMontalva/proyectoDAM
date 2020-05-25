@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { MatchesService } from '../services/data/matches.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tab1',
@@ -10,10 +12,13 @@ import { Router } from '@angular/router';
 export class Tab1Page implements OnInit {
 
   segmentModel = "today";
+  data: any;
+  dataSoon: any;
 
-  constructor(private _authService: AuthService, private router: Router) {}
+  constructor(private _authService: AuthService, private router: Router, private _dataService: MatchesService) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.data = await this._dataService.getData('matches')['matches'];
   }
 
   async logout() {
