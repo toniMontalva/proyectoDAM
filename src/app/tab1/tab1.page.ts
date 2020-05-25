@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatchesService } from '../services/data/matches.service';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
+import { timingSafeEqual } from 'crypto';
 
 @Component({
   selector: 'app-tab1',
@@ -16,16 +17,40 @@ export class Tab1Page implements OnInit {
   data: any;
   dataSoon: any;
 
-  constructor(private _authService: AuthService, private router: Router, private _dataService: MatchesService) {}
+  constructor(private _authService: AuthService, private router: Router, private _dataService: MatchesService) {
+    // this._dataService.getData('matches');
+    // let filter = 'dateFrom=';
+    // filter += this.currentDate();
+    // filter += '&dateTo=';
+    // filter += this.currentDatePlusWeek();
+    // console.log(filter);
+    // this._dataService.getDataFilter('matches', filter);
+  }
 
   async ngOnInit() {
-    //this.data = await this._dataService.getData('matches')['matches'];
     let filter = 'dateFrom=';
     filter += this.currentDate();
     filter += '&dateTo=';
     filter += this.currentDatePlusWeek();
-    console.log(filter);
-    this.dataSoon = await this._dataService.getDataFilter('matches', filter)['matches'];
+
+    await this._dataService.getData('matches')
+    .subscribe(
+      (data) => { // Success
+        this.data = data['matches'];
+      },
+      (error) =>{
+        console.error(error);
+      }
+    );
+
+    await this._dataService.getDataFilter('matches', filter)
+    .subscribe((data) => { // Success
+      console.log(data);
+      this.dataSoon =  data['matches'];
+    },
+    (error) =>{
+      console.error(error);
+    });
   }
 
   async logout() {

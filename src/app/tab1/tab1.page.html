@@ -32,8 +32,13 @@
   <div class="containerToday" *ngIf="segmentModel === 'today'">
     <ion-text>Today</ion-text>
     <ion-list *ngIf="data">
-      <ion-item *ngFor="let match of (data | async)">
-        {{match}}
+      <ion-item *ngFor="let match of data" lines="none">
+        <ion-avatar slot="start">
+          <img [src]="" alt="">
+        </ion-avatar>
+        <ion-avatar slot="end">
+          <img [src]="" alt="">
+        </ion-avatar>
       </ion-item>
 
     </ion-list>
@@ -41,12 +46,49 @@
       <ion-text>Not matches found for today</ion-text>
     </ion-list>
   </div>
-  <div class="containerToday" *ngIf="segmentModel === 'next'">
+  <!-- <div class="containerToday" *ngIf="segmentModel === 'next'">
     <ion-text>Soon</ion-text>
     <ion-list *ngIf="dataSoon">
-      <ion-item *ngFor="let match of (dataSoon | async)">
-        {{match.id}}
+      <ion-item *ngFor="let match of dataSoon" lines="none">
+        <div class="local">
+          <p>{{match.homeTeam.name}}</p>
+        </div>
+        <div class="mid">
+          <ion-avatar slot="start">
+            <img [src]="match.competition.area.ensignUrl" alt="">
+          </ion-avatar>
+        </div>
+        <div class="away">
+          <p>{{match.awayTeam.name}}</p>
+        </div>
+        
       </ion-item>
+
+    </ion-list>
+    <ion-list *ngIf="!dataSoon">
+      <ion-text>Not matches found for today</ion-text>
+    </ion-list>
+  </div> -->
+  <div class="container" *ngIf="segmentModel === 'next'">
+    <ion-text>Soon</ion-text>
+    <ion-list *ngIf="dataSoon">
+      <ion-grid>
+        <ion-row *ngFor="let match of dataSoon">
+          <ion-col text-center>
+            <p>{{match.homeTeam.name}}</p>
+          </ion-col>
+
+          <ion-col text-center style="text-align: center;">
+            <ion-avatar>
+              <img [src]="match.competition.area.ensignUrl" alt="">
+            </ion-avatar>
+          </ion-col>
+
+          <ion-col text-end>
+            <p>{{match.awayTeam.name}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 
     </ion-list>
     <ion-list *ngIf="!dataSoon">
