@@ -109,6 +109,8 @@ export class AuthService {
             .auth
             .signOut()
             .then(() => {
+                this.userNick = "";
+                this.userKey = "";
                 this.router.navigate(['/auth']);
             });
     }

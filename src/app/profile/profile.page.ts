@@ -26,4 +26,8 @@ export class ProfilePage implements OnInit {
     this.translateService.setLanguage(this.selectedLanguage);
   }
 
+  logout() {
+    this._authService.logout();
+  }
+
 }
