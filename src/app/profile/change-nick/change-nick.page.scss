@@ -1,0 +1,16 @@
+.playername {
+    font-size: 24px;
+    font-weight: 600;
+    color: #303940;
+}
+
+.container {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.error {
+color: red;
+}

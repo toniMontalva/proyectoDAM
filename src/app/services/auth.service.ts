@@ -182,18 +182,27 @@ export class AuthService {
     }
 
     changeUserPassword(newPassword: string) {
-        return this.afAuth
-            .auth
-            .currentUser
-            .updatePassword(newPassword)
+        return this.afAuth.auth.currentUser.updatePassword(newPassword)
     }
 
     changeUserEmail(email: string) {
-        return this.afAuth
-            .auth
-            .currentUser
-            .updateEmail(email)
+        return this.afAuth.auth.currentUser.updateEmail(email)
     }
 
-
+    async changeUserNick(nick: string) {
+        let ref = this._db.database.ref("Users/");
+        let data = {
+            nickname: nick
+        }
+        await ref.once("value", snapshot => {
+            snapshot.forEach(value => {
+                let child = value.val();
+                if(child.id == this.userKey) {
+                    let ref2 = this._db.database.ref(`Users/${value.key}/${this.userKey}`);
+                    ref2.update(data);
+                    return true;
+                }
+            })
+        })
+    }
 }
