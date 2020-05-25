@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { TranslateConfigService } from '../translate-config.service';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,9 +12,11 @@ import { TranslateService } from '@ngx-translate/core';
 export class ProfilePage implements OnInit {
 
   selectedLanguage: string;
+  userNick: string = "";
 
-  constructor(private translate: TranslateService, private translateService: TranslateConfigService) { 
+  constructor(private translate: TranslateService, private translateService: TranslateConfigService, private _authService: AuthService) { 
     this.selectedLanguage = this.translate.currentLang;
+    this.userNick = this._authService.userNick;
   }
 
   ngOnInit() {

@@ -30,7 +30,9 @@ export class AuthPage implements OnInit {
   async login() {
     await this._authService.login(this.email, this.password);
     this.error = this._authService.error;
-    this.password = ""; 
+    this.password = "";
+    await this._authService.getUserNick();
+    console.log(this._authService.userNick);
   }
 
   languageChanged() {

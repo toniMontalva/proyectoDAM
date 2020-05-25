@@ -23,16 +23,16 @@
 
   <div class="card-body">
     <div class="user-meta ion-text-center">
-      <h3 class="playername">Nombre Usuario</h3>
+      <h3 class="playername">{{userNick}}</h3>
       <h5 class="country">SPAIN</h5>
-      <h6 class="ranking">Current ranking: <ion-chip>
+      <!-- <h6 class="ranking">Current ranking: <ion-chip>
         <ion-label>2</ion-label>
         </ion-chip>
-      </h6>
+      </h6> -->
     </div>
-    <ion-button expand="full" color="primary">http://rogerfederer.com</ion-button>
-    <ion-button expand="full" color="secondary">@RogerFederer on Twitter</ion-button>
-    <ion-button expand="full" color="secondary">View profile at ATP</ion-button>
+    <ion-button expand="full" color="primary" routerLink="/profile/change-email">{{'Change Email' | translate}}</ion-button>
+    <ion-button expand="full" color="secondary" routerLink="/profile/change-password">{{'Change Password' | translate}}</ion-button>
+    <ion-button expand="full" color="secondary" routerLink="/profile/change-nick">{{'Change Nick' | translate}}</ion-button>
   </div>
 </ion-content>
 
