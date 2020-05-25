@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{'Reset password' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <ion-row class="ion-justify-content-center">
+      <img src="assets/logo200x200.png" alt="logo" class="logo">
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="10" size-lg="6" style="text-align: center;">
+        <p style="font-size: smaller;">
+          {{'Reset Text' | translate}}
+        </p>
+      </ion-col>
+    </ion-row>    
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="10" size-lg="6" style="text-align: center;">
+        <ion-input type="email" class="input-email" [(ngModel)]="email" mode="md" placeholder="{{'Email' | translate}}" required></ion-input>
+      </ion-col>
+    </ion-row>    
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="10" size-lg="6">
+        <ion-button mode="ios" type="submit" color="danger" expand="block">{{'Send' | translate }}</ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

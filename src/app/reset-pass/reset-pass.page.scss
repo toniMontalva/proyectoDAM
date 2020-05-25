@@ -1,0 +1,12 @@
+ion-input {
+    background-color: orange;
+    border-radius: 15px;
+    --placeholder-opacity: 0.8;
+    --placeholder-color: black;
+  }
+  .container {
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }

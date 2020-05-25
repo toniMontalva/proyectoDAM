@@ -20,6 +20,10 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'reset-pass',
+    loadChildren: () => import('./reset-pass/reset-pass.module').then( m => m.ResetPassPageModule)
   }
 ];
 @NgModule({

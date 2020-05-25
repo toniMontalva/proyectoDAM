@@ -13,12 +13,17 @@
         <ion-input class="input1" mode="md" type="password" [(ngModel)]="password" placeholder="{{'Password' | translate}}" clearInput="true"></ion-input>
       </ion-col>
     </ion-row>
+    <ion-row>
+      <ion-col style="text-align: center;">
+        <a [routerLink]="['/reset-pass']" class="small-text">{{'Forgot' | translate }}</a>
+      </ion-col>
+    </ion-row>
     <ion-row class="ion-justify-content-center">
       <ion-col size="10" size-lg="6">
         <ion-button mode="ios" type="submit" color="danger" expand="block" (click)="login()">{{'Login' | translate}}</ion-button>
       </ion-col>
     </ion-row>
-    <ion-row class="ion-justify-content-center">
+    <ion-row class="ion-justify-content-center" *ngIf="error">
       <ion-col size="10" size-lg="6">
         <ion-text class="error ion-text-center">{{error}}</ion-text>
       </ion-col>
