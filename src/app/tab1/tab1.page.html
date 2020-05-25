@@ -43,5 +43,14 @@
   </div>
   <div class="containerToday" *ngIf="segmentModel === 'next'">
     <ion-text>Soon</ion-text>
+    <ion-list *ngIf="dataSoon">
+      <ion-item *ngFor="let match of (dataSoon | async)">
+        {{match.id}}
+      </ion-item>
+
+    </ion-list>
+    <ion-list *ngIf="!dataSoon">
+      <ion-text>Not matches found for today</ion-text>
+    </ion-list>
   </div>
 </ion-content>
