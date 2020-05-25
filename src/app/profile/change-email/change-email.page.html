@@ -8,5 +8,78 @@
 </ion-header>
 
 <ion-content>
+  <div class="ion-padding">
+    <form #f="ngForm" novalidate (ngSubmit)="onSubmit(f)">
+      <ion-list>
+        <ion-item>
+          <ion-label position="floating" translate>Current email</ion-label>
+          <ion-input type="email" name="email" required [(ngModel)]="data.email"></ion-input>
+        </ion-item>
 
+        <ion-item lines="none" [hidden]="f.controls.email && (f.controls.email.valid || (f.controls.email.pristine && !isSubmitted))" class="ion-text-end">
+          <ion-text color="danger">
+            <small translate>Field required</small>
+          </ion-text>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" translate>New email</ion-label>
+          <ion-input type="email" required name="newEmail" [(ngModel)]="data.newEmail"></ion-input>
+        </ion-item>
+
+        <ion-item lines="none" [hidden]="f.controls.newEmail && (f.controls.newEmail.valid || (f.controls.newEmail.pristine && !isSubmitted))">
+          <ion-text color="danger">
+            <small translate>Field required</small>
+          </ion-text>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" translate>Confirm email</ion-label>
+          <ion-input type="email" required name="confirmNewEmail" [(ngModel)]="data.confirmNewEmail"></ion-input>
+        </ion-item>
+
+        <ion-item lines="none" [hidden]="f.controls.confirmNewEmail && (f.controls.confirmNewEmail.valid || (f.controls.confirmNewEmail.pristine && !isSubmitted))">
+          <ion-text color="danger">
+            <small translate>Field required</small>
+          </ion-text>
+        </ion-item>
+
+      </ion-list>
+
+      <ion-button type="submit" [disabled]="!f.valid" expand="block" style="width: 95%; align-self: center; margin-top: 5%;" translate>Save changes</ion-button>
+
+    </form>
+
+    <div *ngIf="emailFormat && selectedLanguage=='es'">
+      <p>El formato de email no es válido</p>
+    </div>
+    <div *ngIf="emailFormat && selectedLanguage=='en'">
+      <p>Email format is not valid</p>
+    </div>
+    <div *ngIf="errorDismatch && selectedLanguage=='es'">
+      <p>Los nuevos campos email deben coincidir</p>
+    </div>
+    <div *ngIf="errorDismatch && selectedLanguage=='en'">
+      <p>The new email fields have to match</p>
+    </div>
+    <div *ngIf="errorEmptyField && selectedLanguage=='es'">
+      <p>Tienes que rellenar todos los campos</p>
+    </div>
+    <div *ngIf="errorEmptyField && selectedLanguage=='en'">
+      <p>You have to fill out all the fields</p>
+    </div>
+    <div *ngIf="errorNotActualEmail && selectedLanguage=='es'">
+      <p>El email introducido no coincide con el de su cuenta</p>
+    </div>
+    <div *ngIf="errorNotActualEmail && selectedLanguage=='en'">
+      <p>The entered email doesn't match with your current one</p>
+    </div>
+
+    <ion-row>
+      <ion-col>
+        <ion-text class="error" text-center>{{error}}</ion-text>
+      </ion-col>
+    </ion-row>
+
+  </div>
 </ion-content>

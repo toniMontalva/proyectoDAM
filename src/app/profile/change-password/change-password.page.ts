@@ -20,17 +20,16 @@ export class ChangePasswordPage implements OnInit {
   errorDontMatch: boolean = false;
 
   constructor(
-    private afAuth: AngularFireAuth, 
+    private afAuth: AngularFireAuth,
     private alertCtrl: AlertController,
     private authService: AuthService,
     private toastCtrl: ToastController
-    ) 
-  { 
-      this.data = {
-        password: '',
-        newPassword: '',
-        confirmNewPassword: '',
-      }
+  ) {
+    this.data = {
+      password: '',
+      newPassword: '',
+      confirmNewPassword: '',
+    }
   }
 
   ngOnInit() {
@@ -46,34 +45,34 @@ export class ChangePasswordPage implements OnInit {
   }
 
   async presentAlert(title: string, content: string) {
-		const alert = await this.alertCtrl.create({
-			header: title,
-			message: content,
-			buttons: ['OK']
-		})
+    const alert = await this.alertCtrl.create({
+      header: title,
+      message: content,
+      buttons: ['OK']
+    })
 
-		await alert.present()
+    await alert.present()
   }
-  
-  async onSubmit(myForm: NgForm) {    
+
+  async onSubmit(myForm: NgForm) {
     let email = this.afAuth.auth.currentUser.email;
     let password = myForm.value['password'];
     let newPassword = myForm.value['newPassword'];
     let confirmNewPassword = myForm.value['confirmNewPassword'];
 
-    if(password == '' || newPassword == '' || confirmNewPassword == ''){
+    if (password == '' || newPassword == '' || confirmNewPassword == '') {
       this.errorEmptyFields = true;
       return this.presentAlert('¡Error!', 'Debes introducir los campos obligatorios');
     }
 
-    if(newPassword != confirmNewPassword) {
+    if (newPassword != confirmNewPassword) {
       this.errorDontMatch = true;
       return this.presentAlert('¡Error!', 'Las contraseñas no coinciden');
     }
 
     try {
       await this.afAuth.auth.currentUser.reauthenticateWithCredential(auth.EmailAuthProvider.credential(email, password));
-    } catch(error) {
+    } catch (error) {
       this.presentAlert('¡Error!', 'La contraseña no es correcta');
     }
 
@@ -84,8 +83,8 @@ export class ChangePasswordPage implements OnInit {
     // return this.afAuth.auth.currentUser.linkWithCredential()
   }
 
-  noSubmit(e){
+  noSubmit(e) {
     e.preventDefault();
-  }  
+  }
 
 }
