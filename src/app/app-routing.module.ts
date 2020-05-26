@@ -28,6 +28,10 @@ const routes: Routes = [
     path: 'reset-pass',
     loadChildren: () => import('./reset-pass/reset-pass.module').then( m => m.ResetPassPageModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'match-details/:id',
+    loadChildren: () => import('./match-details/match-details.module').then( m => m.MatchDetailsPageModule)
   }
 ];
 @NgModule({

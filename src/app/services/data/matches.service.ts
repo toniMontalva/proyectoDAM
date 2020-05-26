@@ -44,4 +44,9 @@ export class MatchesService {
     const url = `${this.url}/teams/${id}`;
     return this.http.get(url, { headers: this.headers });
   }
+
+  getMatchInfo(id) {
+    const url = `${this.url}/matches/${id}`;
+    return this.http.get(url, { headers: this.headers });
+  }
 }

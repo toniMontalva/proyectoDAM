@@ -94,7 +94,7 @@ export class Tab1Page implements OnInit {
       (error) =>{
         console.error(error);
       }
-    );    
+    );
 
     await this._dataService.getDataFilter('matches', filter)
     .subscribe((data) => { // Success
