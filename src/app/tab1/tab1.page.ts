@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { MatchesService } from '../services/data/matches.service';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
-import { timingSafeEqual } from 'crypto';
+
+import { ITeam, IMatch } from '../interfaces';
 
 @Component({
   selector: 'app-tab1',
@@ -14,6 +15,9 @@ import { timingSafeEqual } from 'crypto';
 export class Tab1Page implements OnInit {
 
   segmentModel = "today";
+  listOfTeams: ITeam[];
+  listOfMatchesToday: IMatch[] = [];
+  listOfMatchesSoon: IMatch[] = [];
   data: any;
   dataSoon: any;
 
@@ -33,10 +37,38 @@ export class Tab1Page implements OnInit {
     filter += '&dateTo=';
     filter += this.currentDatePlusWeek();
 
+    // await this._dataService.getData('matches')
+    // .subscribe(
+    //   (data) => { // Success
+    //     this.data = data['matches'];
+    //     id.push(data['awayTeam.id']);
+    //     id.push(data['homeTeam.id']);
+    //   },
+    //   (error) =>{
+    //     console.error(error);
+    //   }
+    // );
+
     await this._dataService.getData('matches')
     .subscribe(
       (data) => { // Success
-        this.data = data['matches'];
+        let id = 0;
+        while(id < data['matches'].length) {
+          let match : IMatch = {
+            "id" : data['matches'][id].id,
+            "awayTeam" : data['matches'][id].awayTeam,
+            // "picAwayTeam" : this.getTeamInfo(data['matches'][id].awayTeam.id)['pic'],
+            "picAwayTeam" : 'assets/ball.png',
+            "homeTeam" : data['matches'][id].homeTeam,
+            // "picHomeTeam" : this.getTeamInfo(data['matches'][id].awayTeam.id)['pic'],
+            "picHomeTeam" : 'assets/ball.png',
+            "league": data['matches'][id].competition.name,
+            "time": moment(data['matches'][id].utcDate).format('HH:mm'),
+            "fav": false
+          }
+          this.listOfMatchesToday.push(match);
+          id++;
+        }         
       },
       (error) =>{
         console.error(error);
@@ -51,6 +83,42 @@ export class Tab1Page implements OnInit {
     (error) =>{
       console.error(error);
     });
+
+    console.log(this.listOfMatchesToday);
+  }
+
+  addFav(id) {
+    if(this.segmentModel == "today") {
+      for(let i = 0; i < this.listOfMatchesToday.length; i++) {
+        if(this.listOfMatchesToday[i].id == id) {
+          this.listOfMatchesToday[i].fav = true;
+          this._dataService.favMatches.push(this.listOfMatchesToday[i]);
+        }
+      }
+    }    
+    console.log(this.listOfMatchesToday);
+  }
+
+  removeFav(id) {
+    if(this.segmentModel == "today") {
+      for(let i = 0; i < this.listOfMatchesToday.length; i++) {
+        if(this.listOfMatchesToday[i].id == id) {
+          this.listOfMatchesToday[i].fav = false;
+        }
+      }
+    }
+  }
+
+  async getTeamInfo(id) {
+    await this._dataService.getTeamInfo(id)
+      .subscribe(data => {
+        let team : ITeam = {
+          "id" : id,
+          "name" : data['shortName'],
+          "pic" : data['crestUrl']
+        }
+        return team;
+      });
   }
 
   async logout() {
