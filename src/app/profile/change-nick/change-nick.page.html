@@ -14,7 +14,7 @@
         <h3 class="playername">{{userNick}}</h3>
       </ion-col>
       <ion-col size="12" size-md="6" style="text-align: center;">
-        <ion-input placeholder="enter new nickname..."></ion-input>
+        <ion-input [(ngModel)]="nick" placeholder="enter new nickname..."></ion-input>
       </ion-col>
       <ion-col size="12" size-md="6" style="text-align: center;">
         <p (click)="changeNick()" style="color: #3880ff;">{{'Save changes' | translate}}</p>
