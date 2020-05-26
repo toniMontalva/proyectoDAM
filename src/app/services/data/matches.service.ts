@@ -30,19 +30,6 @@ export class MatchesService {
 
   favMatches: IMatch[] = [];
 
-  // getData(endPoint) {
-  //   const url = `${this.url}/${endPoint}`;
-  //   return this.http.get(url, { headers: this.headers }).subscribe(data => {
-  //     console.log('body', data);
-  //     this.data = data['matches'];
-  //     console.log(this.data);
-  //   },
-  //     err => {
-  //       console.log('ERROR: ', err);
-  //     }
-  //   );
-  // }
-
   getData(endPoint) {
     const url = `${this.url}/${endPoint}`;
     return this.http.get(url, { headers: this.headers });
@@ -57,16 +44,4 @@ export class MatchesService {
     const url = `${this.url}/teams/${id}`;
     return this.http.get(url, { headers: this.headers });
   }
-
-  // getDataFilter(endPoint, filter = {}) {
-  //   const url = `${this.url}/${endPoint}?${filter}`;
-  //   return this.http.get(url, { headers: this.headers }).subscribe(data => {
-  //     console.log('body', data);
-  //     this.dataSoon = data['matches'];
-  //   },
-  //     err => {
-  //       console.log('ERROR: ', err);
-  //     }
-  //   );
-  // }
 }

@@ -32,7 +32,6 @@ export class AuthPage implements OnInit {
     this.error = this._authService.error;
     this.password = "";
     await this._authService.getUserNick();
-    console.log(this._authService.userNick);
   }
 
   languageChanged() {

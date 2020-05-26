@@ -30,7 +30,6 @@
 
 <ion-content>
   <div class="containerToday" *ngIf="segmentModel === 'today'">
-    <ion-text>Today</ion-text>
     <ion-list *ngIf="listOfMatchesToday">
       <ion-grid>
         <ion-row *ngFor="let match of listOfMatchesToday;" class="ion-justify-content-center">
@@ -58,83 +57,40 @@
       </ion-grid>
 
     </ion-list>
-    <ion-list *ngIf="!data">
+    <ion-list *ngIf="!listOfMatchesToday">
       <ion-text>Not matches found for today</ion-text>
     </ion-list>
   </div>
-  <!-- <div class="containerToday" *ngIf="segmentModel === 'next'">
-    <ion-text>Soon</ion-text>
-    <ion-list *ngIf="dataSoon">
-      <ion-item *ngFor="let match of dataSoon" lines="none">
-        <div class="local">
-          <p>{{match.homeTeam.name}}</p>
-        </div>
-        <div class="mid">
-          <ion-avatar slot="start">
-            <img [src]="match.competition.area.ensignUrl" alt="">
-          </ion-avatar>
-        </div>
-        <div class="away">
-          <p>{{match.awayTeam.name}}</p>
-        </div>
-        
-      </ion-item>
 
-    </ion-list>
-    <ion-list *ngIf="!dataSoon">
-      <ion-text>Not matches found for today</ion-text>
-    </ion-list>
-  </div> -->
   <div class="container" *ngIf="segmentModel === 'next'">
-    <ion-text>Soon</ion-text>
-    <ion-list *ngIf="dataSoon">
+    <ion-list *ngIf="listOfMatchesSoon">
       <ion-grid>
-        <ion-row *ngFor="let match of dataSoon">
-          <ion-col text-center>
+        <ion-row *ngFor="let match of listOfMatchesSoon;" class="ion-justify-content-center">
+          <ion-icon name="star-outline" (click)="addFav(match.id)" *ngIf="!match.fav"></ion-icon>
+          <ion-icon name="star-outline" (click)="removeFav(match.id)" *ngIf="match.fav"></ion-icon>
+          <ion-col size="3" class="ion-text-center">
+            <ion-avatar style="margin-left: 4vw;">
+              <img [src]="match.picHomeTeam" alt="">
+            </ion-avatar>
             <p>{{match.homeTeam.name}}</p>
           </ion-col>
 
-          <ion-col col-auto text-center style="text-align: center;">
-            <ion-avatar>
-              <!-- <img [src]="match.competition.area.ensignUrl" alt=""> -->
-              <span ion-text color="color1">{{match.utcDate}}</span>
-            </ion-avatar>
+          <ion-col size="4" style="text-align: center; margin-top: 2vh;">
+            <span ion-text color="color1">{{match.time}}</span>
           </ion-col>
 
-          <ion-col text-end>
+          <ion-col size="4" class="ion-text-center">
+            <ion-avatar style="margin-left: 8vw;">
+              <img [src]="match.picAwayTeam" alt="">
+            </ion-avatar>
             <p>{{match.awayTeam.name}}</p>
           </ion-col>
+          
         </ion-row>
       </ion-grid>
 
     </ion-list>
-
-    <!-- <ion-list *ngIf="dataSoon">
-      <ion-item *ngFor="let match of dataSoon" lines="none">        
-        <ion-grid>
-          <ion-row>
-            <ion-col col>
-              <ion-item>
-                <img src="" alt="" item-right>
-                <p text-right>{{match.homeTeam.name}}</p>
-              </ion-item>
-            </ion-col>
-            <ion-col col-auto>
-              <span ion-text color="color1">{{match.utcDate}}</span>
-              <p ion-text color="color2">Next Match</p>
-            </ion-col>
-            <ion-col col>
-              <ion-item>
-                <img src="" alt="" item-left>
-                <p>{{match.awayTeam.name}}</p>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item> 
-
-    </ion-list>-->
-    <ion-list *ngIf="!dataSoon">
+    <ion-list *ngIf="!listOfMatchesSoon">
       <ion-text>Not matches found for soon</ion-text>
     </ion-list>
   </div>

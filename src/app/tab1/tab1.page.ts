@@ -31,23 +31,41 @@ export class Tab1Page implements OnInit {
     // this._dataService.getDataFilter('matches', filter);
   }
 
+  async getTeamsInfoToday() {
+    for(let i = 0; i < this.listOfMatchesToday.length; i++) {
+      await this._dataService.getTeamInfo(this.listOfMatchesToday[i].awayTeam['id'])
+      .subscribe(data => {
+        this.listOfMatchesToday[i].picAwayTeam = data['crestUrl'];
+        this.listOfMatchesToday[i].awayTeam['name'] = data['tla'];
+      });
+      await this._dataService.getTeamInfo(this.listOfMatchesToday[i].homeTeam['id'])
+      .subscribe(data => {
+        this.listOfMatchesToday[i].picHomeTeam = data['crestUrl'];
+        this.listOfMatchesToday[i].homeTeam['name'] = data['tla'];
+      });
+    }
+  }
+
+  async getTeamsInfoSoon() {
+    for(let i = 0; i < this.listOfMatchesSoon.length; i++) {
+      await this._dataService.getTeamInfo(this.listOfMatchesSoon[i].awayTeam['id'])
+      .subscribe(data => {
+        this.listOfMatchesSoon[i].picAwayTeam = data['crestUrl'];
+        this.listOfMatchesSoon[i].awayTeam = data['tla'];
+      });
+      await this._dataService.getTeamInfo(this.listOfMatchesSoon[i].homeTeam['id'])
+      .subscribe(data => {
+        this.listOfMatchesSoon[i].picHomeTeam = data['crestUrl'];
+        this.listOfMatchesSoon[i].homeTeam['name'] = data['tla'];
+      });
+    }
+  }
+
   async ngOnInit() {
     let filter = 'dateFrom=';
     filter += this.currentDate();
     filter += '&dateTo=';
     filter += this.currentDatePlusWeek();
-
-    // await this._dataService.getData('matches')
-    // .subscribe(
-    //   (data) => { // Success
-    //     this.data = data['matches'];
-    //     id.push(data['awayTeam.id']);
-    //     id.push(data['homeTeam.id']);
-    //   },
-    //   (error) =>{
-    //     console.error(error);
-    //   }
-    // );
 
     await this._dataService.getData('matches')
     .subscribe(
@@ -68,17 +86,34 @@ export class Tab1Page implements OnInit {
           }
           this.listOfMatchesToday.push(match);
           id++;
-        }         
+        }
+        this.getTeamsInfoToday();
       },
       (error) =>{
         console.error(error);
       }
-    );
+    );    
 
     await this._dataService.getDataFilter('matches', filter)
     .subscribe((data) => { // Success
-      console.log(data);
-      this.dataSoon =  data['matches'];
+      let id = 0;
+        while(id < data['matches'].length) {
+          let match : IMatch = {
+            "id" : data['matches'][id].id,
+            "awayTeam" : data['matches'][id].awayTeam,
+            // "picAwayTeam" : this.getTeamInfo(data['matches'][id].awayTeam.id)['pic'],
+            "picAwayTeam" : 'assets/ball.png',
+            "homeTeam" : data['matches'][id].homeTeam,
+            // "picHomeTeam" : this.getTeamInfo(data['matches'][id].awayTeam.id)['pic'],
+            "picHomeTeam" : 'assets/ball.png',
+            "league": data['matches'][id].competition.name,
+            "time": moment(data['matches'][id].utcDate).format('MMM Do HH:mm'),
+            "fav": false
+          }
+          this.listOfMatchesSoon.push(match);
+          id++;
+        }
+        this.getTeamsInfoToday();
     },
     (error) =>{
       console.error(error);
@@ -95,7 +130,7 @@ export class Tab1Page implements OnInit {
           this._dataService.favMatches.push(this.listOfMatchesToday[i]);
         }
       }
-    }    
+    } 
     console.log(this.listOfMatchesToday);
   }
 
