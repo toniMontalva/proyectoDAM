@@ -18,6 +18,7 @@ export class Tab1Page implements OnInit {
   listOfTeams: ITeam[];
   listOfMatchesToday: IMatch[] = [];
   listOfMatchesSoon: IMatch[] = [];
+  listOfFavMatches: any[] = [];
   data: any;
   dataSoon: any;
 
@@ -34,32 +35,32 @@ export class Tab1Page implements OnInit {
   }
 
   async getTeamsInfoToday() {
-    for(let i = 0; i < this.listOfMatchesToday.length; i++) {
+    for (let i = 0; i < this.listOfMatchesToday.length; i++) {
       await this._dataService.getTeamInfo(this.listOfMatchesToday[i].awayTeam['id'])
-      .subscribe(data => {
-        this.listOfMatchesToday[i].picAwayTeam = data['crestUrl'];
-        this.listOfMatchesToday[i].awayTeam['name'] = data['tla'];
-      });
+        .subscribe(data => {
+          this.listOfMatchesToday[i].picAwayTeam = data['crestUrl'];
+          this.listOfMatchesToday[i].awayTeam['name'] = data['tla'];
+        });
       await this._dataService.getTeamInfo(this.listOfMatchesToday[i].homeTeam['id'])
-      .subscribe(data => {
-        this.listOfMatchesToday[i].picHomeTeam = data['crestUrl'];
-        this.listOfMatchesToday[i].homeTeam['name'] = data['tla'];
-      });
+        .subscribe(data => {
+          this.listOfMatchesToday[i].picHomeTeam = data['crestUrl'];
+          this.listOfMatchesToday[i].homeTeam['name'] = data['tla'];
+        });
     }
   }
 
   async getTeamsInfoSoon() {
-    for(let i = 0; i < this.listOfMatchesSoon.length; i++) {
+    for (let i = 0; i < this.listOfMatchesSoon.length; i++) {
       await this._dataService.getTeamInfo(this.listOfMatchesSoon[i].awayTeam['id'])
-      .subscribe(data => {
-        this.listOfMatchesSoon[i].picAwayTeam = data['crestUrl'];
-        this.listOfMatchesSoon[i].awayTeam = data['tla'];
-      });
+        .subscribe(data => {
+          this.listOfMatchesSoon[i].picAwayTeam = data['crestUrl'];
+          this.listOfMatchesSoon[i].awayTeam = data['tla'];
+        });
       await this._dataService.getTeamInfo(this.listOfMatchesSoon[i].homeTeam['id'])
-      .subscribe(data => {
-        this.listOfMatchesSoon[i].picHomeTeam = data['crestUrl'];
-        this.listOfMatchesSoon[i].homeTeam['name'] = data['tla'];
-      });
+        .subscribe(data => {
+          this.listOfMatchesSoon[i].picHomeTeam = data['crestUrl'];
+          this.listOfMatchesSoon[i].homeTeam['name'] = data['tla'];
+        });
     }
   }
 
@@ -69,45 +70,48 @@ export class Tab1Page implements OnInit {
     filter += '&dateTo=';
     filter += this.currentDatePlusWeek();
 
+    var tusmuertos = this._dataService.getTeamInfoDuplicated(4);
+    console.log(tusmuertos);
+
     await this._dataService.getData('matches')
-    .subscribe(
-      (data) => { // Success
-        let id = 0;
-        while(id < data['matches'].length) {
-          let match : IMatch = {
-            "id" : data['matches'][id].id,
-            "awayTeam" : data['matches'][id].awayTeam,
-            // "picAwayTeam" : this.getTeamInfo(data['matches'][id].awayTeam.id)['pic'],
-            "picAwayTeam" : 'assets/ball.png',
-            "homeTeam" : data['matches'][id].homeTeam,
-            // "picHomeTeam" : this.getTeamInfo(data['matches'][id].awayTeam.id)['pic'],
-            "picHomeTeam" : 'assets/ball.png',
-            "league": data['matches'][id].competition.name,
-            "time": moment(data['matches'][id].utcDate).format('HH:mm'),
-            "fav": false
+      .subscribe(
+        (data) => { // Success
+          let id = 0;
+          while (id < data['matches'].length) {
+            let match: IMatch = {
+              "id": data['matches'][id].id,
+              "awayTeam": data['matches'][id].awayTeam,
+              // "picAwayTeam" : this.getTeamInfo(data['matches'][id].awayTeam.id)['pic'],
+              "picAwayTeam": 'assets/ball.png',
+              "homeTeam": data['matches'][id].homeTeam,
+              // "picHomeTeam" : this.getTeamInfo(data['matches'][id].awayTeam.id)['pic'],
+              "picHomeTeam": 'assets/ball.png',
+              "league": data['matches'][id].competition.name,
+              "time": moment(data['matches'][id].utcDate).format('HH:mm'),
+              "fav": false
+            }
+            this.listOfMatchesToday.push(match);
+            id++;
           }
-          this.listOfMatchesToday.push(match);
-          id++;
+          this.getTeamsInfoToday();
+        },
+        (error) => {
+          console.error(error);
         }
-        this.getTeamsInfoToday();
-      },
-      (error) =>{
-        console.error(error);
-      }
-    );
+      );
 
     await this._dataService.getDataFilter('matches', filter)
-    .subscribe((data) => { // Success
-      let id = 0;
-        while(id < data['matches'].length) {
-          let match : IMatch = {
-            "id" : data['matches'][id].id,
-            "awayTeam" : data['matches'][id].awayTeam,
+      .subscribe((data) => { // Success
+        let id = 0;
+        while (id < data['matches'].length) {
+          let match: IMatch = {
+            "id": data['matches'][id].id,
+            "awayTeam": data['matches'][id].awayTeam,
             // "picAwayTeam" : this.getTeamInfo(data['matches'][id].awayTeam.id)['pic'],
-            "picAwayTeam" : 'assets/ball.png',
-            "homeTeam" : data['matches'][id].homeTeam,
+            "picAwayTeam": 'assets/ball.png',
+            "homeTeam": data['matches'][id].homeTeam,
             // "picHomeTeam" : this.getTeamInfo(data['matches'][id].awayTeam.id)['pic'],
-            "picHomeTeam" : 'assets/ball.png',
+            "picHomeTeam": 'assets/ball.png',
             "league": data['matches'][id].competition.name,
             "time": moment(data['matches'][id].utcDate).format('MMM Do HH:mm'),
             "fav": false
@@ -116,30 +120,31 @@ export class Tab1Page implements OnInit {
           id++;
         }
         this.getTeamsInfoToday();
-    },
-    (error) =>{
-      console.error(error);
-    });
+      },
+        (error) => {
+          console.error(error);
+        });
 
     console.log(this.listOfMatchesToday);
   }
 
   addFav(id) {
-    if(this.segmentModel == "today") {
-      for(let i = 0; i < this.listOfMatchesToday.length; i++) {
-        if(this.listOfMatchesToday[i].id == id) {
+    if (this.segmentModel == "today") {
+      for (let i = 0; i < this.listOfMatchesToday.length; i++) {
+        if (this.listOfMatchesToday[i].id == id) {
           this.listOfMatchesToday[i].fav = true;
           this._dataService.favMatches.push(this.listOfMatchesToday[i]);
+          this.listOfFavMatches.push(this.listOfMatchesToday[i]);
         }
       }
-    } 
+    }
     console.log(this.listOfMatchesToday);
   }
 
   removeFav(id) {
-    if(this.segmentModel == "today") {
-      for(let i = 0; i < this.listOfMatchesToday.length; i++) {
-        if(this.listOfMatchesToday[i].id == id) {
+    if (this.segmentModel == "today") {
+      for (let i = 0; i < this.listOfMatchesToday.length; i++) {
+        if (this.listOfMatchesToday[i].id == id) {
           this.listOfMatchesToday[i].fav = false;
         }
       }
@@ -149,10 +154,10 @@ export class Tab1Page implements OnInit {
   async getTeamInfo(id) {
     await this._dataService.getTeamInfo(id)
       .subscribe(data => {
-        let team : ITeam = {
-          "id" : id,
-          "name" : data['shortName'],
-          "pic" : data['crestUrl']
+        let team: ITeam = {
+          "id": id,
+          "name": data['shortName'],
+          "pic": data['crestUrl']
         }
         return team;
       });
@@ -166,17 +171,17 @@ export class Tab1Page implements OnInit {
     this.router.navigate(['/profile']);
   }
 
-  segmentChanged(event){
+  segmentChanged(event) {
     console.log(this.segmentModel);
-    
+
     console.log(event);
   }
 
-  currentDate() : string {
+  currentDate(): string {
     return moment().format('YYYY-MM-DD');
   }
 
-  currentDatePlusWeek() : string {
+  currentDatePlusWeek(): string {
     return moment().add(10, 'days').format('YYYY-MM-DD');
   }
 

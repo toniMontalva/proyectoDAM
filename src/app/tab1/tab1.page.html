@@ -30,17 +30,12 @@
 
 <ion-content>
 
-  <ion-refresher [disabled]="false" slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content refreshingSpinner="circles" refreshingText="Refreshing...">
-    </ion-refresher-content>
-  </ion-refresher>
-
   <div class="containerToday" *ngIf="segmentModel === 'today'">
     <ion-list *ngIf="listOfMatchesToday">
       <ion-grid>
         <ion-row *ngFor="let match of listOfMatchesToday;" class="ion-justify-content-center" [routerLink]="['/match-details', match.id]">
-          <ion-icon name="star-outline" (click)="addFav(match.id)" *ngIf="!match.fav"></ion-icon>
-          <ion-icon name="star-outline" (click)="removeFav(match.id)" *ngIf="match.fav"></ion-icon>
+          <ion-icon style="margin-top: 3vh;" name="star-outline" (click)="addFav(match.id)" *ngIf="!match.fav"></ion-icon>
+          <ion-icon style="margin-top: 3vh;" name="star-outline" (click)="removeFav(match.id)" *ngIf="match.fav"></ion-icon>
           <ion-col size="3" class="ion-text-center">
             <ion-avatar style="margin-left: 4vw;">
               <img [src]="match.picHomeTeam" alt="">

@@ -22,6 +22,7 @@ export class MatchDetailsPage implements OnInit {
   head2head: any[] = [];
 
 
+
   constructor(private _activatedRoute: ActivatedRoute, private _dataService: MatchesService) { }
 
   async ngOnInit() {
