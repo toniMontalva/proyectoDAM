@@ -16,6 +16,7 @@ import { environment } from '../environments/environment';
 
 import { AuthService } from './services/auth.service';
 
+import { HTTP } from '@ionic-native/http/ngx';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -50,7 +51,8 @@ export function createLanguageLoader(http: HttpClient) {
     SplashScreen,
     AuthService,
     TranslateConfigService,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    HTTP
   ],
   bootstrap: [AppComponent]
 })
