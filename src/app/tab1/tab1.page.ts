@@ -22,13 +22,15 @@ export class Tab1Page implements OnInit {
   dataSoon: any;
 
   constructor(private _authService: AuthService, private router: Router, private _dataService: MatchesService) {
-    // this._dataService.getData('matches');
-    // let filter = 'dateFrom=';
-    // filter += this.currentDate();
-    // filter += '&dateTo=';
-    // filter += this.currentDatePlusWeek();
-    // console.log(filter);
-    // this._dataService.getDataFilter('matches', filter);
+  }
+
+  doRefresh(event) {
+    this.listOfMatchesSoon = this.listOfMatchesSoon;
+    this.listOfMatchesToday = this.listOfMatchesToday;
+
+    setTimeout(() => {
+      event.target.complete();
+    }, 2000);
   }
 
   async getTeamsInfoToday() {
