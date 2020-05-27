@@ -14,13 +14,14 @@ import { ITeam, IMatch } from '../interfaces';
 })
 export class Tab1Page implements OnInit {
 
-  segmentModel = "today";
+  segmentModel = "next";
   listOfTeams: ITeam[];
   listOfMatchesToday: IMatch[] = [];
   listOfMatchesSoon: IMatch[] = [];
   listOfFavMatches: any[] = [];
   data: any;
   dataSoon: any;
+  filter: string = "";
 
   constructor(private _authService: AuthService, private router: Router, private _dataService: MatchesService) {
   }
@@ -64,16 +65,29 @@ export class Tab1Page implements OnInit {
     }
   }
 
-  async ngOnInit() {
-    let filter = 'dateFrom=';
-    filter += this.currentDatePlusDay();
-    filter += '&dateTo=';
-    filter += this.currentDatePlusWeek();
+  ngOnInit() {
+    this.filter = 'dateFrom=';
+    this.filter += this.currentDatePlusDay();
+    this.filter += '&dateTo=';
+    this.filter += this.currentDatePlusWeek();
 
     // var intento = this._dataService.getTeamInfoDuplicated(4);
     // console.log(intento);
 
-    this._dataService.getData('matches')
+    this.showData();    
+  }
+
+  getInfoTeams() {
+    if (this.segmentModel == "today") {
+      this.getTeamsInfoToday();
+    } else {
+      this.getTeamsInfoSoon();
+    }
+  }
+
+  showData() {
+    if (this.segmentModel == "today" && this.listOfMatchesToday.length == 0) {
+      this._dataService.getData('matches')
       .subscribe(
         (data) => { // Success
           let id = 0;
@@ -98,8 +112,11 @@ export class Tab1Page implements OnInit {
           console.error(error);
         }
       );
-
-    this._dataService.getDataFilter('matches', filter)
+      setTimeout(() => {
+        this.getInfoTeams();
+      }, 2000);
+    } else if(this.segmentModel == "next" && this.listOfMatchesSoon.length == 0) {
+      this._dataService.getDataFilter('matches', this.filter)
       .subscribe((data) => { // Success
         let id = 0;
         while (id < data['matches'].length) {
@@ -122,16 +139,10 @@ export class Tab1Page implements OnInit {
         (error) => {
           console.error(error);
         });
-    
-  }
-
-  getInfoTeams() {
-    if(this.segmentModel == "today") {
-      this.getTeamsInfoToday();
-    } else {
-      this.getTeamsInfoSoon();
+        setTimeout(() => {
+          this.getInfoTeams();
+        }, 2000);
     }
-    
   }
 
   addFav(id) {
@@ -179,6 +190,7 @@ export class Tab1Page implements OnInit {
 
   segmentChanged(event) {
     console.log(this.segmentModel);
+    this.showData();
 
     console.log(event);
   }
@@ -188,7 +200,7 @@ export class Tab1Page implements OnInit {
   }
 
   currentDatePlusWeek(): string {
-    return moment().add(7, 'days').format('YYYY-MM-DD');
+    return moment().add(3, 'days').format('YYYY-MM-DD');
   }
 
 }
