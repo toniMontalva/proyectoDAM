@@ -49,14 +49,14 @@ export class Tab1Page implements OnInit {
     }
   }
 
-  getTeamsInfoSoon() {
+  async getTeamsInfoSoon() {
     for (let i = 0; i < this.listOfMatchesSoon.length; i++) {
-      this._dataService.getTeamInfo(this.listOfMatchesSoon[i].awayTeam['id'])
+      await this._dataService.getTeamInfo(this.listOfMatchesSoon[i].awayTeam['id'])
         .subscribe(data => {
           this.listOfMatchesSoon[i].picAwayTeam = data['crestUrl'];
           this.listOfMatchesSoon[i].awayTeam = data['tla'];
         });
-      this._dataService.getTeamInfo(this.listOfMatchesSoon[i].homeTeam['id'])
+      await this._dataService.getTeamInfo(this.listOfMatchesSoon[i].homeTeam['id'])
         .subscribe(data => {
           this.listOfMatchesSoon[i].picHomeTeam = data['crestUrl'];
           this.listOfMatchesSoon[i].homeTeam['name'] = data['tla'];
@@ -66,7 +66,7 @@ export class Tab1Page implements OnInit {
 
   async ngOnInit() {
     let filter = 'dateFrom=';
-    filter += this.currentDate();
+    filter += this.currentDatePlusDay();
     filter += '&dateTo=';
     filter += this.currentDatePlusWeek();
 
@@ -183,12 +183,12 @@ export class Tab1Page implements OnInit {
     console.log(event);
   }
 
-  currentDate(): string {
-    return moment().format('YYYY-MM-DD');
+  currentDatePlusDay(): string {
+    return moment().add(1, 'days').format('YYYY-MM-DD');
   }
 
   currentDatePlusWeek(): string {
-    return moment().add(10, 'days').format('YYYY-MM-DD');
+    return moment().add(7, 'days').format('YYYY-MM-DD');
   }
 
 }
