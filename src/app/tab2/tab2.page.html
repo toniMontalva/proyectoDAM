@@ -11,8 +11,8 @@
   <div>
     <ion-list *ngIf="favMatches">
       <ion-grid>
-        <ion-row *ngFor="let match of favMatches;" class="ion-justify-content-center">
-          <ion-col size="4" class="ion-text-center">
+        <ion-row *ngFor="let match of favMatches;" class="ion-justify-content-center" [routerLink]="['/match-details', match.id]">
+          <ion-col size="4" class="ion-text-center" >
             <ion-avatar style="margin-left: 8vw;">
               <img [src]="match.picHomeTeam" alt="">
             </ion-avatar>
