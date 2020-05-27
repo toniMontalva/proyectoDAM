@@ -14,3 +14,9 @@ export interface IMatch {
     "time": string,
     "fav": boolean
 }
+
+export interface ICompetition {
+    "id": number,
+    "name" : string,
+    "flag": string
+}

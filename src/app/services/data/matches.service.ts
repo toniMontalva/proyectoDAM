@@ -45,25 +45,29 @@ export class MatchesService {
     return this.http.get(url, { headers: this.headers });
   }
 
-  getTeamInfoDuplicated(id) {
-    const url = `${this.url}/teams/${id}`;
-    var xhr = new XMLHttpRequest();
+  // getTeamInfoDuplicated(id) {
+  //   const url = `${this.url}/teams/${id}`;
+  //   var xhr = new XMLHttpRequest();
 
-    xhr.open("GET", url, true);
-    xhr.setRequestHeader('X-Auth-Token', 'a45a7458070545019cde080b30962c26');
-    xhr.send(null);
+  //   xhr.open("GET", url, true);
+  //   xhr.setRequestHeader('X-Auth-Token', 'a45a7458070545019cde080b30962c26');
+  //   xhr.send(null);
 
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState == 4 && xhr.status == 200) {
-        var jsonResponse = JSON.parse(xhr.responseText);        
-        return jsonResponse;
-      }
-    }
-
-  }
+  //   xhr.onreadystatechange = function() {
+  //     if (xhr.readyState == 4 && xhr.status == 200) {
+  //       var jsonResponse = JSON.parse(xhr.responseText);        
+  //       return jsonResponse;
+  //     }
+  //   }
+  // }
 
   getMatchInfo(id) {
     const url = `${this.url}/matches/${id}`;
+    return this.http.get(url, { headers: this.headers });
+  }
+
+  getCompetitionInfo() {
+    const url = `${this.url}/competitions?plan=TIER_ONE`;
     return this.http.get(url, { headers: this.headers });
   }
 }

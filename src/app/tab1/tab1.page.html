@@ -30,30 +30,35 @@
 
 <ion-content>
 
-  <div class="containerToday" *ngIf="segmentModel === 'today'">
+  <div *ngIf="segmentModel === 'today'">
     <ion-list *ngIf="listOfMatchesToday">
       <ion-grid>
-        <ion-row *ngFor="let match of listOfMatchesToday;" class="ion-justify-content-center" [routerLink]="['/match-details', match.id]">
+        <ion-row *ngFor="let match of listOfMatchesToday;" class="ion-justify-content-center">
           <ion-icon style="margin-top: 3vh;" name="star-outline" (click)="addFav(match.id)" *ngIf="!match.fav"></ion-icon>
           <ion-icon style="margin-top: 3vh;" name="star-outline" (click)="removeFav(match.id)" *ngIf="match.fav"></ion-icon>
-          <ion-col size="3" class="ion-text-center">
+          <ion-col size="3" class="ion-text-center" [routerLink]="['/match-details', match.id]">
             <ion-avatar style="margin-left: 4vw;">
               <img [src]="match.picHomeTeam" alt="">
             </ion-avatar>
             <p>{{match.homeTeam.name}}</p>
           </ion-col>
 
-          <ion-col size="4" style="text-align: center; margin-top: 2vh;">
-            <span ion-text color="color1">{{match.time}}</span>
+          <ion-col size="4" style="text-align: center; margin-top: 2vh;" [routerLink]="['/match-details', match.id]">
+            <span>{{match.time}}</span>
           </ion-col>
 
-          <ion-col size="4" class="ion-text-center">
+          <ion-col size="4" class="ion-text-center" [routerLink]="['/match-details', match.id]">
             <ion-avatar style="margin-left: 8vw;">
               <img [src]="match.picAwayTeam" alt="">
             </ion-avatar>
             <p>{{match.awayTeam.name}}</p>
           </ion-col>
           
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button (click)="getInfoTeams()" expand="block">Update info</ion-button>
+          </ion-col>
         </ion-row>
       </ion-grid>
 
@@ -63,7 +68,7 @@
     </ion-list>
   </div>
 
-  <div class="container" *ngIf="segmentModel === 'next'">
+  <div *ngIf="segmentModel === 'next'">
     <ion-list *ngIf="listOfMatchesSoon">
       <ion-grid>
         <ion-row *ngFor="let match of listOfMatchesSoon;" class="ion-justify-content-center">
@@ -77,7 +82,7 @@
           </ion-col>
 
           <ion-col size="4" style="text-align: center; margin-top: 2vh;">
-            <span ion-text color="color1">{{match.time}}</span>
+            <span style="font-size: small;">{{match.time}}</span>
           </ion-col>
 
           <ion-col size="4" class="ion-text-center">
@@ -87,6 +92,11 @@
             <p>{{match.awayTeam.name}}</p>
           </ion-col>
           
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button (click)="getInfoTeams()" expand="block">Update info</ion-button>
+          </ion-col>
         </ion-row>
       </ion-grid>
 

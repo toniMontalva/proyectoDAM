@@ -49,14 +49,14 @@ export class Tab1Page implements OnInit {
     }
   }
 
-  async getTeamsInfoSoon() {
+  getTeamsInfoSoon() {
     for (let i = 0; i < this.listOfMatchesSoon.length; i++) {
-      await this._dataService.getTeamInfo(this.listOfMatchesSoon[i].awayTeam['id'])
+      this._dataService.getTeamInfo(this.listOfMatchesSoon[i].awayTeam['id'])
         .subscribe(data => {
           this.listOfMatchesSoon[i].picAwayTeam = data['crestUrl'];
           this.listOfMatchesSoon[i].awayTeam = data['tla'];
         });
-      await this._dataService.getTeamInfo(this.listOfMatchesSoon[i].homeTeam['id'])
+      this._dataService.getTeamInfo(this.listOfMatchesSoon[i].homeTeam['id'])
         .subscribe(data => {
           this.listOfMatchesSoon[i].picHomeTeam = data['crestUrl'];
           this.listOfMatchesSoon[i].homeTeam['name'] = data['tla'];
@@ -70,10 +70,10 @@ export class Tab1Page implements OnInit {
     filter += '&dateTo=';
     filter += this.currentDatePlusWeek();
 
-    var tusmuertos = this._dataService.getTeamInfoDuplicated(4);
-    console.log(tusmuertos);
+    // var intento = this._dataService.getTeamInfoDuplicated(4);
+    // console.log(intento);
 
-    await this._dataService.getData('matches')
+    this._dataService.getData('matches')
       .subscribe(
         (data) => { // Success
           let id = 0;
@@ -93,14 +93,13 @@ export class Tab1Page implements OnInit {
             this.listOfMatchesToday.push(match);
             id++;
           }
-          this.getTeamsInfoToday();
         },
         (error) => {
           console.error(error);
         }
       );
 
-    await this._dataService.getDataFilter('matches', filter)
+    this._dataService.getDataFilter('matches', filter)
       .subscribe((data) => { // Success
         let id = 0;
         while (id < data['matches'].length) {
@@ -119,13 +118,20 @@ export class Tab1Page implements OnInit {
           this.listOfMatchesSoon.push(match);
           id++;
         }
-        this.getTeamsInfoToday();
       },
         (error) => {
           console.error(error);
         });
+    
+  }
 
-    console.log(this.listOfMatchesToday);
+  getInfoTeams() {
+    if(this.segmentModel == "today") {
+      this.getTeamsInfoToday();
+    } else {
+      this.getTeamsInfoSoon();
+    }
+    
   }
 
   addFav(id) {
@@ -151,8 +157,8 @@ export class Tab1Page implements OnInit {
     }
   }
 
-  async getTeamInfo(id) {
-    await this._dataService.getTeamInfo(id)
+  getTeamInfo(id) {
+    this._dataService.getTeamInfo(id)
       .subscribe(data => {
         let team: ITeam = {
           "id": id,
