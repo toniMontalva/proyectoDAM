@@ -20,7 +20,8 @@ export class MatchDetailsPage implements OnInit {
   awayTeamId: number;
   matchTime: string = "";
   head2head: any[] = [];
-
+  venue: string = "";
+  value: string = "";
 
 
   constructor(private _activatedRoute: ActivatedRoute, private _dataService: MatchesService) { }
@@ -35,7 +36,9 @@ export class MatchDetailsPage implements OnInit {
           this.homeTeamId = data['match'].homeTeam['id'];
           this.awayTeamId = data['match'].awayTeam['id'];
           this.matchTime = moment(data['match'].utcDate).format('MMM Do HH:mm');
-          this.head2head = data['head2head'];
+          //this.head2head = data['head2head'];
+          this.venue = data['match'].venue;
+          this.value = data['match'].matchday;
         },
         (error) => {
           console.error(error);
@@ -44,10 +47,10 @@ export class MatchDetailsPage implements OnInit {
 
     setTimeout(() => {
       this.getTeamHomeInfo();
-    }, 1000);
+    }, 2000);
     setTimeout(() => {
       this.getTeamAwayInfo();
-    }, 1000);
+    }, 2000);
   }
 
   getTeamHomeInfo() {
@@ -66,6 +69,18 @@ export class MatchDetailsPage implements OnInit {
         this.awayTeamPic = data['crestUrl'];
         this.awayTeam = data['tla'];
       });
+  }
+
+  doRefresh(event) {
+    if(!this.homeTeamPic) {
+      this.getTeamHomeInfo();      
+    } else if(!this.awayTeamPic) {
+      this.getTeamAwayInfo();
+    }
+
+    setTimeout(() => {
+      event.target.complete();
+    }, 2000);
   }
 
 }

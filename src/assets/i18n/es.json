@@ -44,5 +44,11 @@
     "Leagues": "Ligas",
     "Favorites": "Favoritos",
     "HomeTeam": "Equipo Local",
-    "AwayTeam" : "Equipo Visitante"
+    "AwayTeam" : "Equipo Visitante",
+    "Venue": "Estadio",
+    "Match": "Partido",
+    "in season": "de liga",
+    "Info": "Información del partido",
+    "Lucky": "¿Te sientes con suerte?",
+    "Bet": "Apuesta con Bet365"
 }
