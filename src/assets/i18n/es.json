@@ -42,5 +42,7 @@
     "Matches": "Partidos",
     "Logout": "Salir de la cuenta",
     "Leagues": "Ligas",
-    "Favorites": "Favoritos"
+    "Favorites": "Favoritos",
+    "HomeTeam": "Equipo Local",
+    "AwayTeam" : "Equipo Visitante"
 }

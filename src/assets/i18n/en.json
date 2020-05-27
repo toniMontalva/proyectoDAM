@@ -42,5 +42,7 @@
     "Matches": "Matches",
     "Logout": "Logout",
     "Leagues": "Leagues",
-    "Favorites": "Favorites"
+    "Favorites": "Favorites",
+    "HomeTeam" : "Home Team",
+    "AwayTeam": "Away Team"
 }

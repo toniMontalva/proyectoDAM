@@ -51,7 +51,7 @@
             <ion-avatar style="margin-left: 8vw;">
               <img [src]="match.picAwayTeam" alt="">
             </ion-avatar>
-            <p [routerLink]="['/match-details', match.id]">{{match.awayTeam.name}}</p>
+            <p style="font-weight: bold;">{{match.awayTeam.name}}</p>
           </ion-col>
           
         </ion-row>
@@ -74,22 +74,22 @@
         <ion-row *ngFor="let match of listOfMatchesSoon;" class="ion-justify-content-center">
           <ion-icon style="margin-top: 3vh;" name="star-outline" (click)="addFav(match.id)" *ngIf="!match.fav"></ion-icon>
           <ion-icon style="margin-top: 3vh;" name="star-outline" (click)="removeFav(match.id)" *ngIf="match.fav"></ion-icon>
-          <ion-col size="3" class="ion-text-center" [routerLink]="['/match-details', match.id]">
+          <ion-col size="3" class="ion-text-center">
             <ion-avatar style="margin-left: 4vw;">
               <img [src]="match.picHomeTeam" alt="">
             </ion-avatar>
             <p style="font-weight: bold;">{{match.homeTeam.name}}</p>
           </ion-col>
 
-          <ion-col size="4" style="text-align: center; margin-top: 2vh;" [routerLink]="['/match-details', match.id]">
+          <ion-col size="4" style="text-align: center; margin-top: 2vh;">
             <span style="font-size: small;">{{match.time}}</span>
           </ion-col>
 
-          <ion-col size="4" class="ion-text-center" [routerLink]="['/match-details', match.id]">
+          <ion-col size="4" class="ion-text-center">
             <ion-avatar style="margin-left: 8vw;">
               <img [src]="match.picAwayTeam" alt="">
             </ion-avatar>
-            <p [routerLink]="['/match-details', match.id]">{{match.awayTeam.name}}</p>
+            <p style="font-weight: bold;">{{match.awayTeam.name}}</p>
           </ion-col>
           
         </ion-row>

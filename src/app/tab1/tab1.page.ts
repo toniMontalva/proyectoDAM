@@ -14,7 +14,7 @@ import { ITeam, IMatch } from '../interfaces';
 })
 export class Tab1Page implements OnInit {
 
-  segmentModel = "next";
+  segmentModel = "today";
   listOfTeams: ITeam[];
   listOfMatchesToday: IMatch[] = [];
   listOfMatchesSoon: IMatch[] = [];
@@ -55,7 +55,7 @@ export class Tab1Page implements OnInit {
       await this._dataService.getTeamInfo(this.listOfMatchesSoon[i].awayTeam['id'])
         .subscribe(data => {
           this.listOfMatchesSoon[i].picAwayTeam = data['crestUrl'];
-          this.listOfMatchesSoon[i].awayTeam = data['tla'];
+          this.listOfMatchesSoon[i].awayTeam['name'] = data['tla'];
         });
       await this._dataService.getTeamInfo(this.listOfMatchesSoon[i].homeTeam['id'])
         .subscribe(data => {
@@ -87,7 +87,7 @@ export class Tab1Page implements OnInit {
 
   showData() {
     if (this.segmentModel == "today" && this.listOfMatchesToday.length == 0) {
-      this._dataService.getData('matches')
+     this._dataService.getData('matches')
       .subscribe(
         (data) => { // Success
           let id = 0;
@@ -154,6 +154,14 @@ export class Tab1Page implements OnInit {
           this.listOfFavMatches.push(this.listOfMatchesToday[i]);
         }
       }
+    } else {
+      for (let i = 0; i < this.listOfMatchesSoon.length; i++) {
+        if (this.listOfMatchesSoon[i].id == id) {
+          this.listOfMatchesSoon[i].fav = true;
+          this._dataService.favMatches.push(this.listOfMatchesSoon[i]);
+          this.listOfFavMatches.push(this.listOfMatchesSoon[i]);
+        }
+      }
     }
     console.log(this.listOfMatchesToday);
   }
@@ -163,6 +171,12 @@ export class Tab1Page implements OnInit {
       for (let i = 0; i < this.listOfMatchesToday.length; i++) {
         if (this.listOfMatchesToday[i].id == id) {
           this.listOfMatchesToday[i].fav = false;
+        }
+      }
+    } else {
+      for (let i = 0; i < this.listOfMatchesSoon.length; i++) {
+        if (this.listOfMatchesSoon[i].id == id) {
+          this.listOfMatchesSoon[i].fav = false;
         }
       }
     }

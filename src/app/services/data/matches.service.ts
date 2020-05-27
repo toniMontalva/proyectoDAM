@@ -35,7 +35,7 @@ export class MatchesService {
     return this.http.get(url, { headers: this.headers });
   }
 
-  getDataFilter(endPoint, filter = {}) {
+  getDataFilter(endPoint, filter) {
       const url = `${this.url}/${endPoint}?${filter}`;
       return this.http.get(url, { headers: this.headers });
   }

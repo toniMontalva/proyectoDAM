@@ -11,14 +11,37 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <img src="{{homeTeamPic}}" alt="">
+        <ion-text><h6 style="font-weight: bold;">{{'HomeTeam' | translate}}</h6></ion-text>         
       </ion-col>
       <ion-col>
-        <span>{{matchTime}}</span>
+        <div class="ion-text-end">
+          <ion-text><h6 style="font-weight: bold;">{{'AwayTeam' | translate}}</h6></ion-text>  
+        </div>        
       </ion-col>
-      <ion-col>
-        <img src="{{awayTeamPic}}" alt="">
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="3">
+        <div style="margin-left: 2vw;">
+          <ion-avatar>
+            <img src="{{homeTeamPic}}" alt="">
+          </ion-avatar>
+          <ion-text><h6>{{homeTeam}}</h6></ion-text>
+        </div>        
       </ion-col>
+      <ion-col class="ion-text-center">
+        <span style="margin-top: 18vh;">{{matchTime}}</span>
+      </ion-col>
+      <ion-col size="3" >
+        <div style="margin-right: 2vw;">
+          <ion-avatar>
+            <img src="{{awayTeamPic}}" alt="">
+          </ion-avatar>
+          <ion-text><h6>{{awayTeam}}</h6></ion-text>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+
     </ion-row>
   </ion-grid>
 </ion-content>

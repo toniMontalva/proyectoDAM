@@ -25,9 +25,9 @@ export class MatchDetailsPage implements OnInit {
 
   constructor(private _activatedRoute: ActivatedRoute, private _dataService: MatchesService) { }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.id = +this._activatedRoute.snapshot.paramMap.get('id');
-    await this._dataService.getMatchInfo(this.id)
+    this._dataService.getMatchInfo(this.id)
       .subscribe(
         (data) => { // Success
           console.log('body', data);
@@ -35,25 +35,32 @@ export class MatchDetailsPage implements OnInit {
           this.homeTeamId = data['match'].homeTeam['id'];
           this.awayTeamId = data['match'].awayTeam['id'];
           this.matchTime = moment(data['match'].utcDate).format('MMM Do HH:mm');
-          this.head2head = data['head2head'];          
+          this.head2head = data['head2head'];
         },
         (error) => {
           console.error(error);
         }
       );
-      
-      await this.getTeamsInfo();
 
+    setTimeout(() => {
+      this.getTeamHomeInfo();
+    }, 1000);
+    setTimeout(() => {
+      this.getTeamAwayInfo();
+    }, 1000);
   }
 
-  async getTeamsInfo() {
-    await this._dataService.getTeamInfo(this.homeTeamId)
+  getTeamHomeInfo() {
+    this._dataService.getTeamInfo(this.homeTeamId)
       .subscribe(data => {
         console.log('body', data);
         this.homeTeamPic = data['crestUrl'];
         this.homeTeam = data['tla'];
       });
-    await this._dataService.getTeamInfo(this.awayTeamId)
+  }
+
+  getTeamAwayInfo() {
+    this._dataService.getTeamInfo(this.awayTeamId)
       .subscribe(data => {
         console.log('body', data);
         this.awayTeamPic = data['crestUrl'];
