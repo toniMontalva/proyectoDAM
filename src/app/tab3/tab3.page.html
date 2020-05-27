@@ -1,6 +1,6 @@
 <ion-header mode='ios'>
   <ion-toolbar>
-    <ion-title>Ligas</ion-title>
+    <ion-title>{{'Leagues' | translate}}</ion-title>
     <ion-buttons slot="end" padding-start routerLink="/profile">
       <ion-icon name="person-circle-outline" class="fontSize"></ion-icon>
     </ion-buttons>
@@ -8,7 +8,19 @@
 </ion-header>
 
 <ion-content>
-  <div class="container">
+  <div>
+    <ion-grid>
+      <ion-row *ngFor="let league of dataArray;" class="ion-justify-content-center">
+        <ion-col size="3" class="ion-text-center">
+          <ion-avatar style="margin-left: 4vw;">
+            <img [src]="league.flag" alt="">
+          </ion-avatar>
+        </ion-col>
+        <ion-col>
+          <p>{{league.name}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
   </div>
 </ion-content>

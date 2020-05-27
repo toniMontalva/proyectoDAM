@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="{{'Back' | translate}}"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{league}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher [disabled]="false" slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-text><h6 style="font-weight: bold;">{{'HomeTeam' | translate}}</h6></ion-text>         
+      </ion-col>
+      <ion-col>
+        <div class="ion-text-end">
+          <ion-text><h6 style="font-weight: bold;">{{'AwayTeam' | translate}}</h6></ion-text>  
+        </div>        
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="3">
+        <div style="margin-left: 5vw;">
+          <ion-avatar>
+            <img src="{{homeTeamPic}}" alt="">
+          </ion-avatar>
+          <ion-text><h6 style="margin-left: 3vw;">{{homeTeam}}</h6></ion-text>
+        </div>        
+      </ion-col>
+      <ion-col class="ion-text-center">
+        <span style="margin-top: 18vh;">{{matchTime}}</span>
+        <div class="result">
+          <span ion-text color="color1">0</span>
+          <span ion-text color="color1">-</span>
+          <span ion-text color="color1">0</span>
+        </div>
+      </ion-col>
+      <ion-col size="3" >
+        <div style="margin-right: 2vw;">
+          <ion-avatar>
+            <img src="{{awayTeamPic}}" alt="">
+          </ion-avatar>
+          <ion-text><h6 style="margin-left: 3vw;">{{awayTeam}}</h6></ion-text>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-text-center">
+        <p><strong>{{'Info' | translate}}</strong></p>
+        <p>{{'Match' | translate}} {{value}} {{'in season' | translate}}</p>
+        <p>{{'Venue' | translate}}: {{venue}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-text-center">
+        <p translate>Lucky</p>
+        <ion-button mode="ios" expand="block" class="bet" (click)="presentToast()">{{'Bet' | translate}}</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="error">
+      <ion-col>
+        <p class="error">{{error}}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

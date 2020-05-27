@@ -40,5 +40,15 @@
     "Today": "Today",
     "Soon": "Soon",
     "Matches": "Matches",
-    "Logout": "Logout"
+    "Logout": "Logout",
+    "Leagues": "Leagues",
+    "Favorites": "Favorites",
+    "HomeTeam" : "Home Team",
+    "AwayTeam": "Away Team",
+    "Venue": "Venue",
+    "Match": "Match",
+    "in season": "in season",
+    "Info": "Information about the match",
+    "Lucky": "Do you feel lucky?",
+    "Bet": "Bet with Bet365"
 }

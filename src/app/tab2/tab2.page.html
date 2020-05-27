@@ -8,7 +8,31 @@
 </ion-header>
 
 <ion-content>
-  <div class="container">
+  <div>
+    <ion-list *ngIf="favMatches">
+      <ion-grid>
+        <ion-row *ngFor="let match of favMatches;" class="ion-justify-content-center" [routerLink]="['/match-details', match.id]">
+          <ion-col size="4" class="ion-text-center" >
+            <ion-avatar style="margin-left: 8vw;">
+              <img [src]="match.picHomeTeam" alt="">
+            </ion-avatar>
+            <p>{{match.homeTeam.name}}</p>
+          </ion-col>
 
+          <ion-col size="4" style="text-align: center; margin-top: 2vh;">
+            <span ion-text color="color1">{{match.time}}</span>
+          </ion-col>
+
+          <ion-col size="4" class="ion-text-center">
+            <ion-avatar style="margin-left: 8vw;">
+              <img [src]="match.picAwayTeam" alt="">
+            </ion-avatar>
+            <p>{{match.awayTeam.name}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <p *ngIf="!favMatches">No tienes favoritos añadidos</p>
+
+    </ion-list>
   </div>
 </ion-content>
